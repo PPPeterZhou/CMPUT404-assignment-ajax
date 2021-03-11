@@ -24,6 +24,7 @@
   </head> 
   <body bgcolor="black" height="100%" width="100%"> 
     <canvas id="c" width="100%" height="100%" style="-webkit-tap-highlight-color: transparent;"></canvas> 
+    <img id="moon_and_star" src='moon_and_star.png', height="80px", width="80px">
     <script>
 var canvas = document.getElementById('c');
 var host = window.location.host;
@@ -57,6 +58,7 @@ world = {};
 
 //XXX: TODO Make this prettier!
 function drawCircle(context,entity) {
+    var mns = document.getElementById('moon_and_star');
     with(context) {
         beginPath();              
         lineWidth = 3;
@@ -66,6 +68,8 @@ function drawCircle(context,entity) {
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
+        // FROM: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
+        drawImage(mns, x-45, y-45, 80, 80);
         stroke();                                
     }
 }
@@ -247,15 +251,15 @@ mouse = (function() {
 // Add the application specific mouse listeners!
 //XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'white'});
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'red'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'grey'});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
+    addEntityWithoutName({'x':x,'y':y,'colour':'transparent',
                           'radius':10});
 });
 
